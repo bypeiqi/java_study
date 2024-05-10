@@ -4,19 +4,17 @@ import java.util.Stack;
 
 public class decode {
     private String str;
-    private String pre_str;
     private Stack<Object> stack;
     private int a;
     private String result;
 
     public decode(){
         str="";
-        pre_str="";
         a=0;
         stack=new Stack<>();
     }
     public String decodeString(String s){
-        StringBuilder sb = new StringBuilder();
+        String result="";
         char[] charArray=s.toCharArray();
         for(char c:charArray){
             if (Character.isDigit(c)) {
@@ -33,17 +31,18 @@ public class decode {
                 str="";
             }
             else{
-                pre_str=(String) stack.pop();
-                a=(int) stack.pop();
+                String pre_str=(String) stack.pop();
+                int size=(int) stack.pop();
                 
-                for(int b=0;b<a;b++){
-                  sb.append(str);
+                for(int b=0;b<size;b++){
+                  result+=str;
                 }
-                result=sb.toString();
+                str=pre_str+result;
+                result="";
                 }
                 
         }
-        return result;
+        return str;
     }
     public static void main(String[] args) {
         decode decode=new decode();
